@@ -23,6 +23,17 @@
 |---|---|
 | ![用户管理](assets/users.png) | ![设置](assets/setting.png) |
 
+## Roadmap
+
+- **多平台支持**：抽象统一的「链接解析 → 清单勾选 → 队列下载」流水线，逐步接入更多视频平台
+  - YouTube（yt-dlp 内核或自建解析）、Bilibili、TikTok、小红书、Instagram Reels 等
+  - 平台级风控签名能力下沉为可插拔的 resolver 接口
+- **与 [BaoCut](https://github.com/JimLiu/baocut) 联动**：对接宝玉老师的 AI 音视频转译/剪辑 agent
+  - 下载完成一键送入 BaoCut：转写、字幕翻译、配音、剪辑、动画
+  - 或暴露本地接口，让 BaoCut 直接调度 VHub 完成素材下载
+- **下载管理增强**：关注作者定时自动检查更新、下载历史记录、失败自动重试
+- **凭证安全**：Cookie/登录态迁移到系统 Keychain，不再明文落盘
+
 ## 已知限制
 
 抖音自 2026-08 起对 `aweme/detail`、`aweme/post`、`mix/*`、`music/*` 等接口启用 ArgusSecurityPlugin 页面签名门禁，**纯 HTTP 请求会被确定性 403**。本应用内置 page bridge（隐藏 webview 加载 douyin.com，由页面 SDK 自动签名）已覆盖该门禁；部分接口仍需登录态，可在设置里打开应用内登录窗口扫码一次。A-Bogus 签名未移植。
