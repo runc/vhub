@@ -17,6 +17,12 @@
 - 任务队列：并发下载（可调）、实时进度、失败重试、按作者分目录
 - 设置持久化（`~/Library/Application Support/VHub/settings.json`）：下载目录、Cookie、代理、画质、并发、限速
 
+## 截图
+
+| 用户管理：检查更新，封面卡片勾选下载 | 设置：Cookie / 画质 / 并发 / 代理 |
+|---|---|
+| ![用户管理](assets/users.png) | ![设置](assets/setting.png) |
+
 ## 已知限制
 
 抖音自 2026-08 起对 `aweme/detail`、`aweme/post`、`mix/*`、`music/*` 等接口启用 ArgusSecurityPlugin 页面签名门禁，**纯 HTTP 请求会被确定性 403**。本应用内置 page bridge（隐藏 webview 加载 douyin.com，由页面 SDK 自动签名）已覆盖该门禁；部分接口仍需登录态，可在设置里打开应用内登录窗口扫码一次。A-Bogus 签名未移植。
