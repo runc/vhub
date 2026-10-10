@@ -1,0 +1,38 @@
+name: release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: macos-latest
+    steps:
+      # go.mod replaces github.com/egoist/mygo => ../mygo, so the sibling
+      # checkout must sit at ../mygo relative to this repo.
+      - uses: actions/checkout@v4
+        with:
+          path: vhub
+      - uses: actions/checkout@v4
+        with:
+          repository: egoist/mygo
+          path: mygo
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: vhub/go.mod
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm ci
+        working-directory: vhub
+      - name: Build app + dmg
+        run: go run ../mygo/cmd/mygo build .
+        working-directory: vhub
+      - name: Publish release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: vhub/build/darwin-*/VHub *.dmg
+          generate_release_notes: true
